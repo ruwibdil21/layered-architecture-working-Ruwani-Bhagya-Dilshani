@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 
 
 public class ItemDTO implements Serializable {
+
     private String code;
     private String description;
     private BigDecimal unitPrice;
