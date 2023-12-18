@@ -14,6 +14,7 @@ public class OrderDetailsDAOImpl implements OrderDetailsDAO {
         Connection connection = null;
         connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement stm = connection.prepareStatement("INSERT INTO OrderDetails (oid, itemCode, unitPrice, qty) VALUES (?,?,?,?)");
+        //SQLUtil.execute("INSERT INTO OrderDetails (oid, itemCode, unitPrice, qty) VALUES (?,?,?,?)", orderId);
 
         for (OrderDetailDTO detail : orderDetails) {
             stm.setString(1, orderId);
@@ -29,4 +30,6 @@ public class OrderDetailsDAOImpl implements OrderDetailsDAO {
         }
         return true;
     }
+
+
 }

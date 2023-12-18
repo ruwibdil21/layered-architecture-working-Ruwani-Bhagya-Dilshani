@@ -77,7 +77,7 @@ public class ManageCustomersFormController {
             Statement stm = connection.createStatement();
             ResultSet rst = stm.executeQuery("SELECT * FROM Customer");*/
 
-            ArrayList<CustomerDTO> allCustomer = customerDAO.getallCustomer();
+            ArrayList<CustomerDTO> allCustomer = customerDAO.getall();
 
             for (CustomerDTO dto:allCustomer){
                 tblCustomers.getItems().add(new CustomerTM(
@@ -165,7 +165,7 @@ public class ManageCustomersFormController {
                 pstm.setString(3, address);
                 pstm.executeUpdate();*/
 
-                boolean isSaved = customerDAO.saveCustomer(new CustomerDTO(id, name, address));
+                boolean isSaved = customerDAO.save(new CustomerDTO(id, name, address));
 
                 if (isSaved) {
                     tblCustomers.getItems().add(new CustomerTM(id, name, address));
@@ -191,7 +191,7 @@ public class ManageCustomersFormController {
                 pstm.executeUpdate();*/
 
                 CustomerDTO dto = new CustomerDTO(id,name,address);
-                customerDAO.updateCustomer(dto);
+                customerDAO.update(dto);
 
 
             } catch (SQLException e) {
@@ -216,7 +216,7 @@ public class ManageCustomersFormController {
         pstm.setString(1, id);
         return pstm.executeQuery().next();*/
 
-        return customerDAO.existsCustomer(id);
+        return customerDAO.exists(id);
 
     }
 
@@ -233,7 +233,7 @@ public class ManageCustomersFormController {
             pstm.setString(1, id);
             pstm.executeUpdate();*/
 
-            customerDAO.deleteCustomer(id);
+            customerDAO.delete(id);
 
             tblCustomers.getItems().remove(tblCustomers.getSelectionModel().getSelectedItem());
             tblCustomers.getSelectionModel().clearSelection();

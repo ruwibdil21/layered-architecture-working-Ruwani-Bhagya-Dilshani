@@ -83,7 +83,7 @@ public class ManageItemsFormController {
             while (rst.next()) {
                 tblItems.getItems().add(new ItemTM(rst.getString("code"), rst.getString("description"), rst.getBigDecimal("unitPrice"), rst.getInt("qtyOnHand")));
             }*/
-            ArrayList<ItemDTO> allItem = itemDAO.getallItems();
+            ArrayList<ItemDTO> allItem = itemDAO.getall();
 
             for (ItemDTO dto:allItem){
                 tblItems.getItems().add(new ItemTM(
@@ -154,7 +154,7 @@ public class ManageItemsFormController {
             pstm.setString(1, code);
             pstm.executeUpdate();*/
 
-            itemDAO.deleteItem(code);
+            itemDAO.delete(code);
 
             tblItems.getItems().remove(tblItems.getSelectionModel().getSelectedItem());
             tblItems.getSelectionModel().clearSelection();
@@ -202,7 +202,7 @@ public class ManageItemsFormController {
                 pstm.setInt(4, qtyOnHand);
                 pstm.executeUpdate();*/
 
-                boolean isSaved = itemDAO.saveItem(new ItemDTO(code,description,unitPrice,qtyOnHand));
+                boolean isSaved = itemDAO.save(new ItemDTO(code,description,unitPrice,qtyOnHand));
 
                 if (isSaved) {
                     tblItems.getItems().add(new ItemTM(code, description, unitPrice, qtyOnHand));
@@ -228,7 +228,7 @@ public class ManageItemsFormController {
                 pstm.executeUpdate();*/
 
                 ItemDTO dto = new ItemDTO(code,description,unitPrice,qtyOnHand);
-                itemDAO.updateItem(dto);
+                itemDAO.update(dto);
 
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
@@ -252,7 +252,7 @@ public class ManageItemsFormController {
         pstm.setString(1, code);
         return pstm.executeQuery().next();*/
 
-        return itemDAO.existsItem(code);
+        return itemDAO.exists(code);
     }
 
 
