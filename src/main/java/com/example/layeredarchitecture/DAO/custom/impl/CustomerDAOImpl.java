@@ -1,5 +1,7 @@
-package com.example.layeredarchitecture.DAO;
+package com.example.layeredarchitecture.DAO.custom.impl;
 
+import com.example.layeredarchitecture.DAO.SQLUtil;
+import com.example.layeredarchitecture.DAO.custom.CustomerDAO;
 import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.CustomerDTO;
 
@@ -46,7 +48,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
  Connection connection = DBConnection.getDbConnection().getConnection();
         Statement stm = connection.createStatement();
-        ResultSet rst =SQLUtil.execute("SELECT * FROM Customer");
+        ResultSet rst = SQLUtil.execute("SELECT * FROM Customer");
         ArrayList<CustomerDTO> allCustomer = new ArrayList<>();
 
         while (rst.next()){

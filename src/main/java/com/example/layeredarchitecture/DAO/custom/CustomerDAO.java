@@ -1,5 +1,6 @@
-package com.example.layeredarchitecture.DAO;
+package com.example.layeredarchitecture.DAO.custom;
 
+import com.example.layeredarchitecture.DAO.CrudDAO;
 import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.CustomerDTO;
 import com.example.layeredarchitecture.view.tdm.CustomerTM;
@@ -18,7 +19,7 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
 
-public interface CustomerDAO extends CrudDAO<CustomerDTO>{
+public interface CustomerDAO extends CrudDAO<CustomerDTO> {
 //    ArrayList<CustomerDTO> getallCustomer() throws SQLException, ClassNotFoundException;
 //
 //
