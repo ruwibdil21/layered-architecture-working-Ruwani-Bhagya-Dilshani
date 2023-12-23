@@ -1,8 +1,11 @@
 package com.example.layeredarchitecture.BO;
 
+import com.example.layeredarchitecture.DAO.DAOFactory;
+import com.example.layeredarchitecture.DAO.custom.CustomerDAO;
 import com.example.layeredarchitecture.DAO.custom.ItemDAO;
 import com.example.layeredarchitecture.DAO.custom.OrderDAO;
 import com.example.layeredarchitecture.DAO.custom.OrderDetailsDAO;
+import com.example.layeredarchitecture.DAO.custom.impl.CustomerDAOImpl;
 import com.example.layeredarchitecture.DAO.custom.impl.ItemDAOImpl;
 import com.example.layeredarchitecture.DAO.custom.impl.OrderDAOImpl;
 import com.example.layeredarchitecture.DAO.custom.impl.OrderDetailsDAOImpl;
@@ -14,6 +17,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class PlaceOrderBOImpl implements PlaceOrderBO {
+    OrderDAO orderDAO= (OrderDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ORDER);
+    CustomerDAO customerDAO = (CustomerDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMER);
+    ItemDAO itemDAO = (ItemDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ITEM);
+    OrderDetailsDAO orderDetailDAO = (OrderDetailsDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ORDR_DETAILS);
+
     @Override
     public boolean placeOrder(String orderId, LocalDate orderDate, String customerId, List<OrderDetailDTO> orderDetails) throws SQLException, ClassNotFoundException {
 
