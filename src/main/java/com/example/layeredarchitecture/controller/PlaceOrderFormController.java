@@ -1,13 +1,9 @@
 package com.example.layeredarchitecture.controller;
 
-import com.example.layeredarchitecture.DAO.custom.CustomerDAO;
-import com.example.layeredarchitecture.DAO.custom.ItemDAO;
-import com.example.layeredarchitecture.DAO.custom.OrderDAO;
-import com.example.layeredarchitecture.DAO.custom.OrderDetailsDAO;
-import com.example.layeredarchitecture.DAO.custom.impl.CustomerDAOImpl;
-import com.example.layeredarchitecture.DAO.custom.impl.ItemDAOImpl;
-import com.example.layeredarchitecture.DAO.custom.impl.OrderDAOImpl;
-import com.example.layeredarchitecture.DAO.custom.impl.OrderDetailsDAOImpl;
+import com.example.layeredarchitecture.BO.PlaceOrderBO;
+import com.example.layeredarchitecture.BO.PlaceOrderBOImpl;
+import com.example.layeredarchitecture.DAO.custom.*;
+import com.example.layeredarchitecture.DAO.custom.impl.*;
 import com.example.layeredarchitecture.model.CustomerDTO;
 import com.example.layeredarchitecture.model.ItemDTO;
 import com.example.layeredarchitecture.model.OrderDetailDTO;
@@ -57,10 +53,17 @@ public class PlaceOrderFormController {
     public Label lblTotal;
     private String orderId;
 
+/*
     OrderDAO orderDAO=new OrderDAOImpl();
     CustomerDAO customerDAO = new CustomerDAOImpl();
     ItemDAO itemDAO = new ItemDAOImpl();
     OrderDetailsDAO orderDetailDAO = new OrderDetailsDAOImpl();
+
+    QueryDAO queryDAO = new QueryDAOImpl();
+*/
+
+    PlaceOrderBO placeOrderBO = new PlaceOrderBOImpl();
+
 
 
     public void initialize() throws SQLException, ClassNotFoundException {
@@ -372,18 +375,26 @@ public class PlaceOrderFormController {
     }
 
     public boolean saveOrder(String orderId, LocalDate orderDate, String customerId, List<OrderDetailDTO> orderDetails) {
+        try {
+           return placeOrderBO.placeOrder(orderId,orderDate,customerId,orderDetails);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
         /*Transaction*/
         //Connection connection = null;
-        try {
+        /*try {
             OrderDAO orderDAO = new OrderDAOImpl();
             boolean isExits = orderDAO.checkOrderId(orderId);
-            /*connection = DBConnection.getDbConnection().getConnection();
+            *//*connection = DBConnection.getDbConnection().getConnection();
             PreparedStatement stm = connection.prepareStatement("SELECT oid FROM `Orders` WHERE oid=?");
-            stm.setString(1, orderId);*/
-            /*if order id already exist*/
-            /*if (stm.executeQuery().next()) {
+            stm.setString(1, orderId);*//*
+            *//*if order id already exist*//*
+            *//*if (stm.executeQuery().next()) {
 
-            }*/
+            }*//*
 
             if (!isExits){
                 boolean isSavedOrder = orderDAO.saveOrder(orderId,orderDate,customerId);
@@ -406,7 +417,7 @@ public class PlaceOrderFormController {
                         }
                     }
                 }
-            }
+            }*/
             /*connection.setAutoCommit(false);
             stm = connection.prepareStatement("INSERT INTO `Orders` (oid, date, customerID) VALUES (?,?,?)");
             stm.setString(1, orderId);
@@ -454,31 +465,12 @@ public class PlaceOrderFormController {
             connection.setAutoCommit(true);
             return true;*/
 
-        } catch (SQLException throwables) {
+       /* } catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return false;
+        return false;*/
+
     }
-    public ItemDTO findItem(String code) {
-        try {
-            ItemDAO itemDAO = new ItemDAOImpl();
-            return itemDAO.search(code);
-
-            /*Connection connection = DBConnection.getDbConnection().getConnection();
-            PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Item WHERE code=?");
-            pstm.setString(1, code);
-            ResultSet rst = pstm.executeQuery();
-            rst.next();
-            return new ItemDTO(code, rst.getString("description"), rst.getBigDecimal("unitPrice"), rst.getInt("qtyOnHand"));*/
-        } catch (SQLException e) {
-            throw new RuntimeException("Failed to find the Item " + code, e);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-
 }
