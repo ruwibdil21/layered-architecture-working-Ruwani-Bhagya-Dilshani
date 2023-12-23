@@ -1,11 +1,11 @@
-package com.example.layeredarchitecture.BO;
+package com.example.layeredarchitecture.BO.Custom.impl;
 
+import com.example.layeredarchitecture.BO.Custom.PlaceOrderBO;
 import com.example.layeredarchitecture.DAO.DAOFactory;
 import com.example.layeredarchitecture.DAO.custom.CustomerDAO;
 import com.example.layeredarchitecture.DAO.custom.ItemDAO;
 import com.example.layeredarchitecture.DAO.custom.OrderDAO;
 import com.example.layeredarchitecture.DAO.custom.OrderDetailsDAO;
-import com.example.layeredarchitecture.DAO.custom.impl.CustomerDAOImpl;
 import com.example.layeredarchitecture.DAO.custom.impl.ItemDAOImpl;
 import com.example.layeredarchitecture.DAO.custom.impl.OrderDAOImpl;
 import com.example.layeredarchitecture.DAO.custom.impl.OrderDetailsDAOImpl;

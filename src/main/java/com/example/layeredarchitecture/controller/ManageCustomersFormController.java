@@ -1,9 +1,7 @@
 package com.example.layeredarchitecture.controller;
 
-import com.example.layeredarchitecture.BO.CustomerBO;
-import com.example.layeredarchitecture.BO.CustomerBOImpl;
-import com.example.layeredarchitecture.DAO.custom.CustomerDAO;
-import com.example.layeredarchitecture.DAO.custom.impl.CustomerDAOImpl;
+import com.example.layeredarchitecture.BO.Custom.CustomerBO;
+import com.example.layeredarchitecture.DAO.BOFactory;
 import com.example.layeredarchitecture.model.CustomerDTO;
 import com.example.layeredarchitecture.view.tdm.CustomerTM;
 import com.jfoenix.controls.JFXButton;
@@ -41,7 +39,7 @@ public class ManageCustomersFormController {
     public JFXButton btnAddNewCustomer;
 
 
-    CustomerBO customerBO = new CustomerBOImpl();
+    CustomerBO customerBO = (CustomerBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.CUSTOMER);
 
     public void initialize() {
         tblCustomers.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("id"));

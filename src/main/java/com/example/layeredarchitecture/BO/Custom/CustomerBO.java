@@ -1,11 +1,12 @@
-package com.example.layeredarchitecture.BO;
+package com.example.layeredarchitecture.BO.Custom;
 
+import com.example.layeredarchitecture.BO.SuperBO;
 import com.example.layeredarchitecture.model.CustomerDTO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface CustomerBO {
+public interface CustomerBO extends SuperBO {
     ArrayList<CustomerDTO> getall() throws SQLException, ClassNotFoundException;
 
     boolean save(CustomerDTO dto) throws SQLException, ClassNotFoundException;

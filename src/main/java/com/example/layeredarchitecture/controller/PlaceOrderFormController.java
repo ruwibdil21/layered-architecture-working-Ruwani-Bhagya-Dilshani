@@ -1,7 +1,7 @@
 package com.example.layeredarchitecture.controller;
 
-import com.example.layeredarchitecture.BO.PlaceOrderBO;
-import com.example.layeredarchitecture.BO.PlaceOrderBOImpl;
+import com.example.layeredarchitecture.BO.Custom.PlaceOrderBO;
+import com.example.layeredarchitecture.DAO.BOFactory;
 import com.example.layeredarchitecture.DAO.custom.*;
 import com.example.layeredarchitecture.DAO.custom.impl.*;
 import com.example.layeredarchitecture.model.CustomerDTO;
@@ -62,7 +62,7 @@ public class PlaceOrderFormController {
     QueryDAO queryDAO = new QueryDAOImpl();
 */
 
-    PlaceOrderBO placeOrderBO = new PlaceOrderBOImpl();
+    PlaceOrderBO placeOrderBO = (PlaceOrderBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.PLACE_ORDER);
 
 
 

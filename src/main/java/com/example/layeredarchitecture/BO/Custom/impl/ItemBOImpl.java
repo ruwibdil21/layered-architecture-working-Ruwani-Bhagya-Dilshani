@@ -1,14 +1,14 @@
-package com.example.layeredarchitecture.BO;
+package com.example.layeredarchitecture.BO.Custom.impl;
 
+import com.example.layeredarchitecture.BO.Custom.ItemBO;
 import com.example.layeredarchitecture.DAO.DAOFactory;
 import com.example.layeredarchitecture.DAO.custom.ItemDAO;
-import com.example.layeredarchitecture.DAO.custom.impl.ItemDAOImpl;
 import com.example.layeredarchitecture.model.ItemDTO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ItemBOImpl implements ItemBO{
+public class ItemBOImpl implements ItemBO {
 
     ItemDAO itemDAO = (ItemDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ITEM);
     @Override
