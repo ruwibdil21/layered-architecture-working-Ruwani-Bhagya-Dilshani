@@ -2,7 +2,7 @@ package com.example.layeredarchitecture.controller;
 
 import com.example.layeredarchitecture.BO.Custom.CustomerBO;
 import com.example.layeredarchitecture.DAO.BOFactory;
-import com.example.layeredarchitecture.model.CustomerDTO;
+import com.example.layeredarchitecture.DTO.CustomerDTO;
 import com.example.layeredarchitecture.view.tdm.CustomerTM;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
@@ -76,7 +76,7 @@ public class ManageCustomersFormController {
             Statement stm = connection.createStatement();
             ResultSet rst = stm.executeQuery("SELECT * FROM Customer");*/
 
-            ArrayList<CustomerDTO> allCustomer = customerBO.getall();
+            ArrayList<CustomerDTO> allCustomer = customerBO.getallCustomer();
 
             for (CustomerDTO dto:allCustomer){
                 tblCustomers.getItems().add(new CustomerTM(
@@ -166,7 +166,7 @@ public class ManageCustomersFormController {
 
 
 
-                boolean isSaved = customerBO.save(new CustomerDTO(id, name, address));
+                boolean isSaved = customerBO.saveCustomer(new CustomerDTO(id, name, address));
 
                 if (isSaved) {
                     tblCustomers.getItems().add(new CustomerTM(id, name, address));
@@ -192,7 +192,7 @@ public class ManageCustomersFormController {
                 pstm.executeUpdate();*/
 
                 CustomerDTO dto = new CustomerDTO(id,name,address);
-                customerBO.update(dto);
+                customerBO.updateCustomer(dto);
 
 
             } catch (SQLException e) {
@@ -217,7 +217,7 @@ public class ManageCustomersFormController {
         pstm.setString(1, id);
         return pstm.executeQuery().next();*/
 
-        return customerBO.exists(id);
+        return customerBO.existsCustomer(id);
 
     }
 
@@ -234,7 +234,7 @@ public class ManageCustomersFormController {
             pstm.setString(1, id);
             pstm.executeUpdate();*/
 
-            customerBO.delete(id);
+            customerBO.deleteCustomer(id);
 
             tblCustomers.getItems().remove(tblCustomers.getSelectionModel().getSelectedItem());
             tblCustomers.getSelectionModel().clearSelection();

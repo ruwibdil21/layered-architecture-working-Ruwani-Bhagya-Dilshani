@@ -1,8 +1,6 @@
 package com.example.layeredarchitecture.DAO.custom;
 
 import com.example.layeredarchitecture.DAO.SuperDAO;
-import com.example.layeredarchitecture.db.DBConnection;
-import com.example.layeredarchitecture.model.OrderDTO;
 
 import java.sql.*;
 import java.time.LocalDate;

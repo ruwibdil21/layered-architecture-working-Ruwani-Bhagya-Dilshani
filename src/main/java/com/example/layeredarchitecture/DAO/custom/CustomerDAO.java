@@ -1,25 +1,10 @@
 package com.example.layeredarchitecture.DAO.custom;
 
 import com.example.layeredarchitecture.DAO.CrudDAO;
-import com.example.layeredarchitecture.db.DBConnection;
-import com.example.layeredarchitecture.model.CustomerDTO;
-import com.example.layeredarchitecture.view.tdm.CustomerTM;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
+import com.example.layeredarchitecture.DTO.CustomerDTO;
+import com.example.layeredarchitecture.entity.Customer;
 
-import java.io.IOException;
-import java.net.URL;
-import java.sql.*;
-import java.util.ArrayList;
-
-public interface CustomerDAO extends CrudDAO<CustomerDTO> {
+public interface CustomerDAO extends CrudDAO<Customer> {
 //    ArrayList<CustomerDTO> getallCustomer() throws SQLException, ClassNotFoundException;
 //
 //

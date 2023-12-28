@@ -8,6 +8,7 @@ public class DAOFactory {
     private DAOFactory(){}
 
     public static DAOFactory getDaoFactory(){
+
         return daoFactory==null? new DAOFactory():daoFactory;
     }
 

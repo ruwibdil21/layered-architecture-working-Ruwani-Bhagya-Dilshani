@@ -3,7 +3,8 @@ package com.example.layeredarchitecture.DAO.custom.impl;
 import com.example.layeredarchitecture.DAO.SQLUtil;
 import com.example.layeredarchitecture.DAO.custom.CustomerDAO;
 import com.example.layeredarchitecture.db.DBConnection;
-import com.example.layeredarchitecture.model.CustomerDTO;
+import com.example.layeredarchitecture.DTO.CustomerDTO;
+import com.example.layeredarchitecture.entity.Customer;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -44,15 +45,15 @@ public class CustomerDAOImpl implements CustomerDAO {
         return null;
     }*/
    @Override
-    public  ArrayList<CustomerDTO> getall() throws SQLException, ClassNotFoundException {
+    public  ArrayList<Customer> getall() throws SQLException, ClassNotFoundException {
 
  Connection connection = DBConnection.getDbConnection().getConnection();
         Statement stm = connection.createStatement();
         ResultSet rst = SQLUtil.execute("SELECT * FROM Customer");
-        ArrayList<CustomerDTO> allCustomer = new ArrayList<>();
+        ArrayList<Customer> allCustomer = new ArrayList<>();
 
         while (rst.next()){
-            CustomerDTO customerDTO= new CustomerDTO(
+            Customer customerDTO= new Customer(
                     rst.getString("id"),
                     rst.getString("name"),
                     rst.getString("address"));
@@ -63,7 +64,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
         }
     @Override
-    public boolean save(CustomerDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean save(Customer dto) throws SQLException, ClassNotFoundException {
        // Connection connection = DBConnection.getDbConnection().getConnection();
        // PreparedStatement pstm = connection.prepareStatement("INSERT INTO Customer (id,name, address) VALUES (?,?,?)");
        // pstm.setString(1, dto.getId());
@@ -75,7 +76,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     }
     @Override
-    public boolean update(CustomerDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean update(Customer dto) throws SQLException, ClassNotFoundException {
        // Connection connection = DBConnection.getDbConnection().getConnection();
        // PreparedStatement pstm = connection.prepareStatement("UPDATE Customer SET name=?, address=? WHERE id=?");
         //pstm.setString(1, dto.getName());
@@ -127,14 +128,14 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public CustomerDTO search(String newValue) throws SQLException, ClassNotFoundException {
+    public Customer search(String newValue) throws SQLException, ClassNotFoundException {
        Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Customer WHERE id=?");
         pstm.setString(1, newValue + "");
         ResultSet rst = pstm.executeQuery();
         rst.next();
-        CustomerDTO customerDTO = new CustomerDTO(newValue +"", rst.getString("name"), rst.getString("address"));
-        return customerDTO;
+        Customer customer = new Customer(newValue +"", rst.getString("name"), rst.getString("address"));
+        return customer;
 
       // return SQLUtil.execute("SELECT * FROM Customer WHERE id=?",newValue);
    }

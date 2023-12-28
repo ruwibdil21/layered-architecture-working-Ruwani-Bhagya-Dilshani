@@ -2,7 +2,7 @@ package com.example.layeredarchitecture.controller;
 
 import com.example.layeredarchitecture.BO.Custom.ItemBO;
 import com.example.layeredarchitecture.DAO.BOFactory;
-import com.example.layeredarchitecture.model.ItemDTO;
+import com.example.layeredarchitecture.DTO.ItemDTO;
 import com.example.layeredarchitecture.view.tdm.ItemTM;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;

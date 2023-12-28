@@ -9,11 +9,12 @@ import com.example.layeredarchitecture.DAO.custom.OrderDetailsDAO;
 import com.example.layeredarchitecture.DAO.custom.impl.ItemDAOImpl;
 import com.example.layeredarchitecture.DAO.custom.impl.OrderDAOImpl;
 import com.example.layeredarchitecture.DAO.custom.impl.OrderDetailsDAOImpl;
-import com.example.layeredarchitecture.model.ItemDTO;
-import com.example.layeredarchitecture.model.OrderDetailDTO;
+import com.example.layeredarchitecture.DTO.OrderDetailDTO;
+import com.example.layeredarchitecture.entity.Item;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlaceOrderBOImpl implements PlaceOrderBO {
@@ -42,7 +43,7 @@ public class PlaceOrderBOImpl implements PlaceOrderBO {
                     boolean isSavedOrderDetail = orderDetailsDAO.saveOrderDetail(orderDetails,orderId);
                     if (isSavedOrderDetail){
                         for (OrderDetailDTO detail : orderDetails) {
-                            ItemDTO item = findItem(detail.getItemCode());
+                            Item item = findItem(detail.getItemCode());
                             item.setQtyOnHand(item.getQtyOnHand() - detail.getQty());
                             ItemDAO itemDAO = new ItemDAOImpl();
                             boolean b= itemDAO.update(item);
@@ -105,10 +106,10 @@ public class PlaceOrderBOImpl implements PlaceOrderBO {
             return true;*/
         return false;
     }
-    public ItemDTO findItem(String code) {
+    public Item findItem(String code) {
         try {
-            ItemDAO itemDAO = new ItemDAOImpl();
-            return itemDAO.search(code);
+            ItemDAO item = new ItemDAOImpl();
+            return item.search(code);
 
             /*Connection connection = DBConnection.getDbConnection().getConnection();
             PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Item WHERE code=?");
@@ -121,6 +122,11 @@ public class PlaceOrderBOImpl implements PlaceOrderBO {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+        return null;
+    }
+
+    @Override
+    public ArrayList<Item> getAllItems() {
         return null;
     }
 }

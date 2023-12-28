@@ -3,7 +3,8 @@ package com.example.layeredarchitecture.DAO.custom.impl;
 import com.example.layeredarchitecture.DAO.SQLUtil;
 import com.example.layeredarchitecture.DAO.custom.ItemDAO;
 import com.example.layeredarchitecture.db.DBConnection;
-import com.example.layeredarchitecture.model.ItemDTO;
+import com.example.layeredarchitecture.DTO.ItemDTO;
+import com.example.layeredarchitecture.entity.Item;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -46,21 +47,21 @@ public class ItemDAOImpl implements ItemDAO {
 
 
    @Override
-    public ArrayList<ItemDTO> getall() throws SQLException, ClassNotFoundException {
-       Connection connection = DBConnection.getDbConnection().getConnection();
-        Statement stm = connection.createStatement();
+    public ArrayList<Item> getall() throws SQLException, ClassNotFoundException {
+      // Connection connection = DBConnection.getDbConnection().getConnection();
+      //  Statement stm = connection.createStatement();
         ResultSet rst = SQLUtil.execute("SELECT * FROM Item");
-        ArrayList<ItemDTO> allItem = new ArrayList<>();
+        ArrayList<Item> allItems = new ArrayList<>();
 
-        while (rst.next()) {
-            ItemDTO itemDTO = new ItemDTO(
+       while (rst.next()) {
+            Item itemDTO = new Item(
                     rst.getString("code"),
                     rst.getString("description"),
                     rst.getBigDecimal("unitPrice"),
                     rst.getInt("qtyOnHand"));
-            allItem.add(itemDTO);
+            allItems.add(itemDTO);
         }
-        return allItem;
+        return allItems;
 
      // return   SQLUtil.execute("SELECT * FROM Item");
 
@@ -72,7 +73,7 @@ public class ItemDAOImpl implements ItemDAO {
 //    }
 
     @Override
-    public boolean save(ItemDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean save(Item dto) throws SQLException, ClassNotFoundException {
 
 //  Connection connection = DBConnection.getDbConnection().getConnection();
 //        PreparedStatement pstm = connection.prepareStatement("INSERT INTO Item (code, description, unitPrice, qtyOnHand) VALUES (?,?,?,?)");
@@ -87,7 +88,7 @@ public class ItemDAOImpl implements ItemDAO {
 
     }
     @Override
-    public boolean update(ItemDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean update(Item dto) throws SQLException, ClassNotFoundException {
 
  Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement pstm = connection.prepareStatement("UPDATE Item SET description=?, unitPrice=?, qtyOnHand=? WHERE code=?");
@@ -140,15 +141,18 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
     @Override
-    public ItemDTO search(String newValue) throws SQLException, ClassNotFoundException {
-
- Connection connection = DBConnection.getDbConnection().getConnection();
-        PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Item WHERE code=?");
-        pstm.setString(1, newValue + "");
-        ResultSet rst = pstm.executeQuery();
-        rst.next();
-        ItemDTO item = new ItemDTO(newValue + "", rst.getString("description"), rst.getBigDecimal("unitPrice"), rst.getInt("qtyOnHand"));
-        return item;
+        public Item search(String code) throws SQLException, ClassNotFoundException {
+            ResultSet rst = SQLUtil.execute("SELECT * FROM Item WHERE code=?",code);
+            rst.next();
+        return new Item(code + "", rst.getString("description"), rst.getBigDecimal("unitPrice"), rst.getInt("qtyOnHand"));
+    }
+ //Connection connection = DBConnection.getDbConnection().getConnection();
+        //PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Item WHERE code=?");
+       // pstm.setString(1, newValue + "");
+       // ResultSet rst = pstm.executeQuery();
+       // rst.next();
+       // ItemDTO item = new ItemDTO(newValue + "", rst.getString("description"), rst.getBigDecimal("unitPrice"), rst.getInt("qtyOnHand"));
+       // return item;
 
 
      //  return SQLUtil.execute("SELECT * FROM Item WHERE code=?",newValue);
@@ -175,6 +179,6 @@ public class ItemDAOImpl implements ItemDAO {
 
   // return SQLUtil.execute("UPDATE Item SET description=?, unitPrice=?, qtyOnHand=? WHERE code=?",item);
 
-    }
+
 
 

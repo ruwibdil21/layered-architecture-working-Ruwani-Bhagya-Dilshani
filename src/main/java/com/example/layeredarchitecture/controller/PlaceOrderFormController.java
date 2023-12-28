@@ -4,9 +4,11 @@ import com.example.layeredarchitecture.BO.Custom.PlaceOrderBO;
 import com.example.layeredarchitecture.DAO.BOFactory;
 import com.example.layeredarchitecture.DAO.custom.*;
 import com.example.layeredarchitecture.DAO.custom.impl.*;
-import com.example.layeredarchitecture.model.CustomerDTO;
-import com.example.layeredarchitecture.model.ItemDTO;
-import com.example.layeredarchitecture.model.OrderDetailDTO;
+import com.example.layeredarchitecture.DTO.CustomerDTO;
+import com.example.layeredarchitecture.DTO.ItemDTO;
+import com.example.layeredarchitecture.DTO.OrderDetailDTO;
+import com.example.layeredarchitecture.entity.Customer;
+import com.example.layeredarchitecture.entity.Item;
 import com.example.layeredarchitecture.view.tdm.OrderDetailTM;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -113,7 +115,7 @@ public class PlaceOrderFormController {
                     //Connection connection = DBConnection.getDbConnection().getConnection();
 
                     CustomerDAO customerDAO = new CustomerDAOImpl();
-                    CustomerDTO customerDTO = customerDAO.search(newValue);
+                    Customer customerDTO = customerDAO.search(newValue);
                     try {
                         if (!existCustomer(newValue + "")) {
 //                            "There is no such customer associated with the id " + id
@@ -161,7 +163,7 @@ public class PlaceOrderFormController {
                     ItemDTO item = new ItemDTO(newItemCode + "", rst.getString("description"), rst.getBigDecimal("unitPrice"), rst.getInt("qtyOnHand"));*/
 
                     ItemDAO itemDAO = new ItemDAOImpl();
-                    ItemDTO itemDTO = itemDAO.search(newItemCode);
+                    Item itemDTO = itemDAO.search(newItemCode);
                     txtDescription.setText(itemDTO.getDescription());
                     txtUnitPrice.setText(itemDTO.getUnitPrice().setScale(2).toString());
 
@@ -252,10 +254,10 @@ public class PlaceOrderFormController {
             ResultSet rst = stm.executeQuery("SELECT * FROM Customer");*/
 
             CustomerDAO customerDAO = new CustomerDAOImpl();
-            ArrayList<CustomerDTO> allCustomer = customerDAO.getall();
+            ArrayList<Customer> allCustomer = customerDAO.getall();
 
-            for (CustomerDTO dto : allCustomer){
-                cmbCustomerId.getItems().add(dto.getId());
+            for (Customer entity : allCustomer){
+                cmbCustomerId.getItems().add(entity.getId());
             }
 
         } catch (SQLException e) {
@@ -268,7 +270,7 @@ public class PlaceOrderFormController {
 
     private void loadAllItemCodes() {
         ItemDAO itemDAO = new ItemDAOImpl();
-        ArrayList<ItemDTO> allItems = null;
+        ArrayList<Item> allItems = null;
         try {
             /*Get all items*/
           //  Connection connection = DBConnection.getDbConnection().getConnection();
@@ -284,7 +286,7 @@ public class PlaceOrderFormController {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        for (ItemDTO dto: allItems){
+        for (Item dto: allItems){
             cmbItemCode.getItems().add(dto.getCode());
         }
     }
