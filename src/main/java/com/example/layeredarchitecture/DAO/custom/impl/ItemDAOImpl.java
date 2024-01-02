@@ -116,7 +116,7 @@ public class ItemDAOImpl implements ItemDAO {
     @Override
     public  void delete(String code) throws SQLException, ClassNotFoundException {
 
- Connection connection = DBConnection.getDbConnection().getConnection();
+        Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement pstm = connection.prepareStatement("DELETE FROM Item WHERE code=?");
         pstm.setString(1, code);
         pstm.executeUpdate();

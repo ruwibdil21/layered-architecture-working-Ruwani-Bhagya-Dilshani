@@ -3,7 +3,7 @@ package com.example.layeredarchitecture.DAO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface CrudDAO <T> extends SuperDAO {
+public interface CrudDAO <T> extends SuperDAO  {
    ArrayList<T> getall() throws SQLException, ClassNotFoundException;
 
     boolean save(T dto) throws SQLException, ClassNotFoundException;
